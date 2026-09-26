@@ -35,7 +35,8 @@ const query = (text, params) => pool.query(text, params);
 const testConnection = async () => {
   try {
     const client = await pool.connect();
-    console.log(`✅ Database connected — ${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'investor_services_db'}`);
+    const hostInfo = process.env.DATABASE_URL ? 'Neon Cloud PostgreSQL' : `${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '5432'}/${process.env.DB_NAME || 'investor_services_db'}`;
+    console.log(`✅ Database connected — ${hostInfo}`);
     client.release();
   } catch (err) {
     console.error('❌ Database connection failed:', err.message);
